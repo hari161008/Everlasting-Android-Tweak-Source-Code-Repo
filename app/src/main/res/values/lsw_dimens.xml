@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="def_frame_width">250</integer>
+    <integer name="def_frame_height">200</integer>
+
+    <integer name="def_notification_frame_width">300</integer>
+    <integer name="def_notification_frame_height">170</integer>
+
+    <integer name="def_notification_pos_x_from_right_dp">8</integer>
+    <integer name="def_notification_pos_y_from_top_dp">50</integer>
+
+    <integer name="def_corner_radius_dp_scaled_10x">20</integer>
+
+    <dimen name="app_widget_padding">8dp</dimen>
+
+    <dimen name="handle_side_padding">4dp</dimen>
+    <dimen name="handle_corner_radius">4dp</dimen>
+    <dimen name="drawer_row_height">10dp</dimen>
+</resources>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Everlasting Android Tweak</string>
+    <string name="accessibility_service_label">Everlasting Tweak Accessibility</string>
+    <string name="notification_listener_label">Everlasting Music Listener</string>
+    <string name="screensaver_label">Everlasting Screensaver</string>
+    <string name="keep_screen_on_label">Keep Screen On</string>
+    <string name="tile_ui_blur">UI Blur</string>
+    <string name="tile_mono_audio">Mono Audio</string>
+    <string name="tile_sound_mode">Sound Mode</string>
+    <string name="tile_stay_awake">Stay Awake</string>
+    <string name="tile_adaptive_brightness">Auto Brightness</string>
+    <string name="tile_nfc">NFC</string>
+    <string name="tile_aod">Always On Display</string>
+    <string name="tile_tap_to_wake">Tap to Wake</string>
+    <string name="tile_sensitive_lock">Lock Screen Notifs</string>
+    <string name="tile_private_dns">Private DNS</string>
+    <string name="tile_usb_debugging">USB Debugging</string>
+    <string name="tile_dev_options">Developer Options</string>
+    <string name="tile_caffeinate">Caffeinate</string>
+    <string name="tile_flip_dnd">Flip to DND</string>
+    <string name="tile_volume_boost">Volume Boost</string>
+    <string name="tile_scale_animations">Scale Animations</string>
+
+    <!-- SwiftSlate integration strings -->
+    <string name="swiftslate_accessibility_service_label">SwiftSlate Assistant</string>
+    <string name="swiftslate_accessibility_service_desc">Provides system-wide AI text replacements using Gemini when trigger commands are typed.</string>
+
+    <!-- Essentials Watermark strings -->
+    <string name="action_cancel">Cancel</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_next">Next</string>
+    <string name="action_ok">OK</string>
+    <string name="action_save">Save</string>
+    <string name="action_save_changes">Save Changes</string>
+    <string name="action_share">Share</string>
+    <string name="feat_watermark_title">Watermark</string>
+    <string name="watermark_border_corners">Round Corners</string>
+    <string name="watermark_border_width">Border Width</string>
+    <string name="watermark_color_section">Color</string>
+    <string name="watermark_custom_text">Custom Text</string>
+    <string name="watermark_custom_text_hint">Enter your text...</string>
+    <string name="watermark_date_time">Date &amp; Time</string>
+    <string name="watermark_device_brand">Device brand</string>
+    <string name="watermark_edit_texts">Edit Watermark Texts</string>
+    <string name="watermark_exif_aperture">Aperture</string>
+    <string name="watermark_exif_date">Date &amp; Time</string>
+    <string name="watermark_exif_focal_length">Focal Length</string>
+    <string name="watermark_exif_iso">ISO</string>
+    <string name="watermark_exif_settings">EXIF Settings</string>
+    <string name="watermark_exif_shutter_speed">Shutter Speed</string>
+    <string name="watermark_font_options">Font Size</string>
+    <string name="watermark_left_align">Align Left</string>
+    <string name="watermark_logo_section">Logo</string>
+    <string name="watermark_logo_show">Show Logo</string>
+    <string name="watermark_logo_size">Logo Size</string>
+    <string name="watermark_move_to_top">Move to Top</string>
+    <string name="watermark_no_date">No date information</string>
+    <string name="watermark_pick_image">Pick Image</string>
+    <string name="watermark_rotate_left">Rotate left</string>
+    <string name="watermark_rotate_right">Rotate right</string>
+    <string name="watermark_save_success">Image saved to gallery</string>
+    <string name="watermark_show_brand">Device Brand</string>
+    <string name="watermark_show_exif">EXIF Data</string>
+    <string name="watermark_spacing">Spacing</string>
+    <string name="watermark_style_frame">Frame</string>
+    <string name="watermark_style_overlay">Overlay</string>
+    <string name="watermark_text_size_brand">Brand Size</string>
+    <string name="watermark_text_size_custom">Text Size</string>
+    <string name="watermark_text_size_data">Data Size</string>
+</resources>

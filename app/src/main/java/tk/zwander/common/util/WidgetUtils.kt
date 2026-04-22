@@ -1,0 +1,160 @@
+package tk.zwander.common.util
+
+import android.annotation.SuppressLint
+import android.appwidget.AppWidgetManager
+import android.appwidget.AppWidgetProviderInfo
+import android.content.ComponentName
+import android.content.Context
+import android.content.pm.PackageManager
+import android.graphics.Color
+import android.os.Build
+import android.os.UserHandle
+import android.os.UserManager
+import android.util.SizeF
+import android.view.View
+import android.widget.RemoteViews
+import android.widget.TextView
+import com.coolappstore.everlastingandroidtweak.R
+import tk.zwander.common.util.providerInfo
+import kotlin.math.floor
+
+val Context.appWidgetManager: AppWidgetManager
+    get() = AppWidgetManager.getInstance(safeApplicationContext)
+
+fun AppWidgetProviderInfo.getSamsungConfigureComponent(context: Context): ComponentName? {
+    return try {
+        context.packageManager.getReceiverInfoCompat(
+            provider,
+            PackageManager.GET_META_DATA
+        ).metaData?.getString("android.appwidget.provider.semConfigureActivity")
+            ?.let { ComponentName.unflattenFromString("${provider.packageName}/$it") }
+    } catch (e: PackageManager.NameNotFoundException) {
+        context.logUtils.debugLog("Error getting Samsung configure component", e)
+        null
+    }
+}
+
+fun AppWidgetProviderInfo?.hasConfiguration(context: Context): Boolean {
+    return this != null &&
+            (configure != null || getSamsungConfigureComponent(context) != null)
+}
+
+fun Context.getAllInstalledWidgetProviders(pkg: String? = null): Map<UserHandle, List<AppWidgetProviderInfo>> {
+    val userManager = getSystemService(Context.USER_SERVICE) as UserManager
+    val profiles = userManager.userProfiles
+
+    return profiles.associateWith { profile ->
+        getAllInstalledWidgetProvidersForProfile(profile, pkg)
+    }
+}
+
+private fun Context.getAllInstalledWidgetProvidersForProfile(
+    profile: UserHandle,
+    pkg: String?,
+): List<AppWidgetProviderInfo> {
+    val manager = appWidgetManager
+    val categories = listOf(
+        AppWidgetProviderInfo.WIDGET_CATEGORY_HOME_SCREEN,
+        AppWidgetProviderInfo.WIDGET_CATEGORY_KEYGUARD,
+        AppWidgetProviderInfo.WIDGET_CATEGORY_SEARCHBOX,
+    )
+
+    return try {
+        // Hidden 3-arg overload: getInstalledProvidersForProfile(int, UserHandle, String?)
+        @Suppress("DiscouragedPrivateApi")
+        val method = AppWidgetManager::class.java.getMethod(
+            "getInstalledProvidersForProfile",
+            Int::class.java, UserHandle::class.java, String::class.java,
+        )
+        categories.flatMap { category ->
+            @Suppress("UNCHECKED_CAST")
+            (method.invoke(manager, category, profile, pkg) as? List<AppWidgetProviderInfo>)
+                ?: emptyList()
+        }
+    } catch (e: NoSuchMethodError) {
+        logUtils.debugLog("Unable to use getInstalledProvidersForProfile", e)
+        try {
+            // Hidden 1-arg overload: getInstalledProviders(int)
+            @Suppress("DiscouragedPrivateApi")
+            val method = AppWidgetManager::class.java.getMethod(
+                "getInstalledProviders", Int::class.java,
+            )
+            categories.flatMap { category ->
+                @Suppress("UNCHECKED_CAST")
+                (method.invoke(manager, category) as? List<AppWidgetProviderInfo>)
+                    ?: emptyList()
+            }.let { list ->
+                if (pkg != null) list.filter { it.providerInfo.packageName == pkg } else list
+            }
+        } catch (e2: Exception) {
+            logUtils.debugLog("Unable to use getInstalledProviders fallback", e2)
+            emptyList()
+        }
+    } catch (e: Exception) {
+        logUtils.debugLog("Error fetching widget providers", e)
+        emptyList()
+    }
+}
+
+fun Context.createWidgetErrorView(): View {
+    val tv = TextView(this)
+    tv.setText(R.string.error_showing_widget)
+    tv.setTextColor(Color.WHITE)
+
+    tv.setBackgroundColor(Color.argb(127, 0, 0, 0))
+    return tv
+}
+
+fun AppWidgetProviderInfo.getCellWidthCompat(totalWidthPx: Int, colCount: Int): Int {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        val targetCells = this.targetCellWidth
+
+        if (targetCells > 0) {
+            return targetCells
+        }
+    }
+
+    val actualMinWidth = this.minWidth
+
+    if (actualMinWidth <= 0) return 1
+
+    return (floor(actualMinWidth.toFloat() / totalWidthPx.toFloat()) * colCount)
+        .toInt()
+        .coerceAtLeast(1)
+}
+
+fun AppWidgetProviderInfo.getCellHeightCompat(totalHeightPx: Int, rowCount: Int): Int {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        val targetCells = this.targetCellHeight
+
+        if (targetCells > 0) {
+            return targetCells
+        }
+    }
+
+    val actualMinHeight = this.minHeight
+
+    if (actualMinHeight <= 0) return 1
+
+    return (floor(actualMinHeight.toFloat() / totalHeightPx.toFloat()) * rowCount)
+        .toInt()
+        .coerceAtLeast(1)
+}
+
+@SuppressLint("DiscouragedPrivateApi")
+fun RemoteViews.getRemoteViewsToApplyCompat(context: Context, size: SizeF? = null): RemoteViews {
+    return try {
+        RemoteViews::class.java
+            .getMethod("getRemoteViewsToApply", Context::class.java, SizeF::class.java)
+            .invoke(this, context, size) as RemoteViews
+    } catch (_: Exception) {
+        try {
+            RemoteViews::class.java
+                .getDeclaredMethod("getRemoteViewsToApply", Context::class.java)
+                .apply { isAccessible = true }
+                .invoke(this, context) as RemoteViews
+        } catch (_: Exception) {
+            this
+        }
+    }
+}

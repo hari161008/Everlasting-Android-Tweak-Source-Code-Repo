@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="100dp"
+    android:minHeight="100dp"
+    android:minResizeWidth="0dp"
+    android:minResizeHeight="0dp"
+    android:updatePeriodMillis="86400000"
+    android:initialLayout="@layout/widget_stack"
+    android:resizeMode="horizontal|vertical"
+    android:widgetCategory="home_screen"
+    android:targetCellWidth="3"
+    android:targetCellHeight="3"
+    android:widgetFeatures="reconfigurable"
+    android:previewImage="@drawable/widget_stack_preview_img"
+    android:previewLayout="@layout/widget_stack_preview"
+    android:configure="tk.zwander.lockscreenwidgets.activities.WidgetStackConfigure"
+    />

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Android dome -->
+    <path android:pathData="M27,65 A27,27 0 0,1 81,65 Z" android:fillColor="@color/launcher_icon_foreground" />
+    <!-- Hat brim -->
+    <path android:pathData="M20,54 Q54,50 88,54 Q82,48 54,44 Q26,48 20,54 Z" android:fillColor="@color/launcher_icon_foreground" />
+    <!-- Hat top -->
+    <path android:pathData="M40,50 Q54,22 68,50 Z" android:fillColor="@color/launcher_icon_foreground" />
+</vector>

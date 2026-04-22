@@ -1,0 +1,92 @@
+<resources>
+    <integer-array name="deferred_task_values">
+        <item>10</item>
+        <item>15</item>
+        <item>30</item>
+        <item>45</item>
+        <item>60</item>
+        <item>90</item>
+        <item>120</item>
+    </integer-array>
+    <string-array name="xposed_scope">
+        <item>com.android.launcher</item>
+        <item>com.android.launcher3</item>
+    </string-array>
+    <string-array name="home_action_entries">
+        <item>@string/action_launch</item>
+        <item>@string/action_freeze</item>
+        <item>@string/action_unfreeze</item>
+        <item>@string/action_deferred_task</item>
+        <item>@string/action_pin</item>
+        <item>@string/action_unpin</item>
+        <item>@string/action_whitelist</item>
+        <item>@string/action_remove_whitelist</item>
+        <item>@string/action_tag_set</item>
+        <item>@string/action_add_pin_shortcut</item>
+        <item>@string/action_export_clipboard</item>
+        <item>@string/action_remove_home</item>
+        <item>@string/action_unfreeze_remove_home</item>
+    </string-array>
+    <string-array name="apps_action_entries">
+        <item>@string/action_details</item>
+        <item>@string/action_export_clipboard</item>
+        <item>@string/action_extract_apk</item>
+        <item>@string/action_uninstall</item>
+    </string-array>
+    <string-array name="working_mode_entries">
+        <item>@string/mode_default</item>
+        <item>@string/mode_shizuku_stop</item>
+        <item>@string/mode_shizuku_disable</item>
+        <item>@string/mode_shizuku_hide</item>
+        <item>@string/mode_shizuku_suspend</item>
+        <item>@string/mode_su_stop</item>
+        <item>@string/mode_su_disable</item>
+        <item>@string/mode_su_hide</item>
+        <item>@string/mode_su_suspend</item>
+        <item>@string/mode_dhizuku_hide</item>
+        <item>@string/mode_dhizuku_suspend</item>
+        <item>@string/mode_owner_hide</item>
+        <item>@string/mode_owner_suspend</item>
+        <item>@string/mode_island_hide</item>
+        <item>@string/mode_island_suspend</item>
+        <item>@string/mode_privapp_stop</item>
+        <item>@string/mode_privapp_disable</item>
+    </string-array>
+    <string-array name="app_theme_entries">
+        <item>@string/follow_system</item>
+        <item>@string/theme_light</item>
+        <item>@string/theme_dark</item>
+    </string-array>
+    <string-array name="donate_payment_entries">
+        <item>@string/donate_alipay</item>
+        <item>@string/donate_wechat</item>
+        <item>@string/donate_bilibili</item>
+        <item>@string/donate_liberapay</item>
+        <item>@string/donate_paypal</item>
+    </string-array>
+    <string-array name="pin_shortcut_entries">
+        <item>@string/action_freeze_tag</item>
+        <item>@string/action_unfreeze_tag</item>
+        <item>@string/action_freeze_all</item>
+        <item>@string/action_unfreeze_all</item>
+        <item>@string/action_freeze_non_whitelisted</item>
+        <item>@string/action_lock</item>
+        <item>@string/action_lock_freeze</item>
+    </string-array>
+    <string-array name="tile_action_entries">
+        <item>@string/auto_freeze</item>
+        <item>@string/action_freeze_all</item>
+        <item>@string/action_unfreeze_all</item>
+        <item>@string/action_freeze_non_whitelisted</item>
+        <item>@string/action_lock</item>
+        <item>@string/action_lock_freeze</item>
+    </string-array>
+    <string-array name="dynamic_shortcut_entries">
+        <item>@string/action_none</item>
+        <item>@string/action_freeze_all</item>
+        <item>@string/action_unfreeze_all</item>
+        <item>@string/action_freeze_non_whitelisted</item>
+        <item>@string/action_lock</item>
+        <item>@string/action_lock_freeze</item>
+    </string-array>
+</resources>

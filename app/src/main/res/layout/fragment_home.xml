@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ROOT CAUSE FIX — Tab bar blur blurs tab text/icons:
+  Previously setRenderEffect() was called directly on the TabLayout, which
+  blurs the entire view including its child content (text labels, icons).
+
+  Fix: the TabLayout is now wrapped inside a FrameLayout. A dedicated
+  <View> (tabsBlurBackground) sits BELOW the TabLayout in z-order.
+  Only tabsBlurBackground receives setRenderEffect() — the TabLayout itself
+  is kept blur-free so its text labels remain crisp.
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--
+      FrameLayout wrapper allows the blur-background View and the TabLayout
+      to be stacked at the same position. Children are drawn in order, so
+      tabsBlurBackground (first) is below tabs (second).
+    -->
+    <FrameLayout
+        android:id="@+id/tabsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--
+          Blur-only background layer.
+          • Visibility is GONE when the Solid style is active (no blur needed).
+          • Visibility is VISIBLE for the Glass / frosted style.
+          • setRenderEffect() is applied HERE, never on the TabLayout above.
+          • Background colour is set programmatically to match the surface token.
+        -->
+        <View
+            android:id="@+id/tabsBlurBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <!--
+          The actual TabLayout — drawn above tabsBlurBackground.
+          Its own background remains a semi-transparent solid colour;
+          no RenderEffect is ever set on this view.
+        -->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:background="@android:color/transparent"
+            app:tabMode="scrollable" />
+
+    </FrameLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

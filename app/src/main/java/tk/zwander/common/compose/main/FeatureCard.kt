@@ -1,0 +1,316 @@
+package tk.zwander.common.compose.main
+
+import android.content.ComponentName
+import android.content.Intent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.isUnspecified
+import androidx.compose.ui.unit.sp
+import androidx.lifecycle.Lifecycle
+import tk.zwander.common.activities.WidgetStackListActivity
+import tk.zwander.common.compose.components.CardSwitch
+import tk.zwander.common.compose.data.FeatureCardInfo
+import tk.zwander.common.compose.util.rememberBooleanPreferenceState
+import tk.zwander.common.data.MainPageButton
+import tk.zwander.common.util.Event
+import tk.zwander.common.util.EventObserverEffect
+import tk.zwander.common.util.LifecycleEffect
+import tk.zwander.common.util.PrefManager
+import tk.zwander.common.util.appWidgetManager
+import tk.zwander.common.util.eventManager
+import tk.zwander.common.util.prefManager
+import com.coolappstore.everlastingandroidtweak.BuildConfig
+import com.coolappstore.everlastingandroidtweak.R
+import tk.zwander.lockscreenwidgets.activities.ComposeFrameSettingsActivity
+import tk.zwander.lockscreenwidgets.activities.UsageActivity
+import tk.zwander.lockscreenwidgets.appwidget.WidgetStackProvider
+import tk.zwander.lockscreenwidgets.compose.SelectDisplayDialog
+import tk.zwander.lockscreenwidgets.util.MainWidgetFrameDelegate
+import tk.zwander.widgetdrawer.activities.ComposeDrawerSettingsActivity
+import tk.zwander.widgetdrawer.util.DrawerDelegate
+
+@Composable
+fun rememberFeatureCards(): List<FeatureCardInfo> {
+    val context = LocalContext.current
+
+    var showingDisplaySelectorAddFrameWidget by remember { mutableStateOf(false) }
+
+    var widgetStackIds by remember { mutableStateOf<List<Int>>(listOf()) }
+
+    LifecycleEffect(Lifecycle.State.RESUMED) {
+        widgetStackIds = context.appWidgetManager.getAppWidgetIds(
+            ComponentName(context, WidgetStackProvider::class.java),
+        ).toList()
+    }
+
+    if (showingDisplaySelectorAddFrameWidget) {
+        SelectDisplayDialog(
+            dismiss = { showingDisplaySelectorAddFrameWidget = false },
+            onFrameSelected = {
+                context.eventManager.sendEvent(Event.LaunchAddWidget(it))
+                showingDisplaySelectorAddFrameWidget = false
+            },
+        )
+    }
+
+    return remember(widgetStackIds.size) {
+        listOf(
+            FeatureCardInfo(
+                title        = R.string.app_name,
+                enabledLabel = R.string.enabled,
+                disabledLabel = R.string.disabled,
+                enabledKey   = PrefManager.KEY_WIDGET_FRAME_ENABLED,
+                buttons      = listOf(
+                    MainPageButton(
+                        icon       = R.drawable.ic_baseline_preview_24,
+                        title      = R.string.preview,
+                        dependency = { MainWidgetFrameDelegate.readOnlyInstance.collectAsState().value != null },
+                    ) {
+                        context.eventManager.sendEvent(Event.PreviewFrames(Event.PreviewFrames.ShowMode.TOGGLE))
+                    },
+                    MainPageButton(
+                        icon  = R.drawable.ic_baseline_help_outline_24,
+                        title = R.string.usage,
+                    ) {
+                        context.startActivity(Intent(context, UsageActivity::class.java))
+                    },
+                    MainPageButton(
+                        icon  = R.drawable.ic_baseline_settings_24,
+                        title = R.string.settings,
+                    ) {
+                        context.startActivity(Intent(context, ComposeFrameSettingsActivity::class.java))
+                    },
+                ),
+                onAction = {
+                    if (!BuildConfig.DEBUG && context.prefManager.currentSecondaryFramesWithStringDisplay.isEmpty()) {
+                        context.eventManager.sendEvent(Event.LaunchAddWidget(-1))
+                    } else {
+                        showingDisplaySelectorAddFrameWidget = true
+                    }
+                },
+                isEnabled        = { context.prefManager.widgetFrameEnabled },
+                onEnabledChanged = { context.prefManager.widgetFrameEnabled = it },
+            ),
+            FeatureCardInfo(
+                title        = R.string.widget_drawer,
+                enabledLabel = R.string.enabled,
+                disabledLabel = R.string.disabled,
+                enabledKey   = PrefManager.KEY_DRAWER_ENABLED,
+                buttons      = listOf(
+                    MainPageButton(
+                        icon       = R.drawable.ic_baseline_open_in_new_24,
+                        title      = R.string.open_drawer,
+                        dependency = { DrawerDelegate.readOnlyInstance.collectAsState().value != null },
+                    ) {
+                        context.eventManager.sendEvent(Event.ShowDrawer)
+                    },
+                    MainPageButton(
+                        icon  = R.drawable.ic_baseline_settings_24,
+                        title = R.string.settings,
+                    ) {
+                        context.startActivity(Intent(context, ComposeDrawerSettingsActivity::class.java))
+                    },
+                ),
+                onAction         = { context.eventManager.sendEvent(Event.LaunchAddDrawerWidget(false)) },
+                isEnabled        = { context.prefManager.drawerEnabled },
+                onEnabledChanged = { context.prefManager.drawerEnabled = it },
+            ),
+        ) + if (widgetStackIds.isEmpty()) {
+            listOf()
+        } else {
+            listOf(
+                FeatureCardInfo(
+                    title               = R.string.widget_stacks,
+                    actionButtonTextRes = R.string.manage_widget_stacks,
+                    actionButtonIconRes = null,
+                    onAction = {
+                        context.startActivity(Intent(context, WidgetStackListActivity::class.java))
+                    },
+                ),
+            )
+        }
+    }
+}
+
+/**
+ * Feature card styled to match the Everlasting app's card design:
+ *  - RoundedCornerShape(20.dp) card container
+ *  - surfaceContainer background, 0 dp elevation (flat/filled style)
+ *  - bodyLarge SemiBold title instead of the original headlineLarge
+ *  - All toggle / button functionality preserved exactly.
+ */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+fun FeatureCard(
+    info: FeatureCardInfo,
+    modifier: Modifier = Modifier,
+) {
+    EventObserverEffect(info.eventObserver)
+
+    Card(
+        modifier = modifier.fillMaxWidth(),
+        shape    = RoundedCornerShape(20.dp),
+        colors   = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceContainer,
+        ),
+        elevation = CardDefaults.cardElevation(0.dp),
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 14.dp),
+        ) {
+            // ── Title row ─────────────────────────────────────────────
+            Text(
+                text       = stringResource(id = info.title),
+                style      = MaterialTheme.typography.bodyLarge,
+                fontWeight = FontWeight.SemiBold,
+                color      = MaterialTheme.colorScheme.onSurface,
+            )
+
+            Spacer(Modifier.height(4.dp))
+
+            HorizontalDivider(
+                color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f),
+            )
+
+            Spacer(Modifier.height(12.dp))
+
+            // ── Enable / disable toggle ────────────────────────────────
+            var enabled by if (info.enabledKey != null) {
+                rememberBooleanPreferenceState(
+                    key            = info.enabledKey,
+                    enabled        = { info.isEnabled() },
+                    onEnabledChanged = { _, v -> info.onEnabledChanged(v) },
+                )
+            } else {
+                remember { mutableStateOf(true) }
+            }
+
+            info.enabledKey?.let {
+                info.enabledLabel?.let {
+                    CardSwitch(
+                        enabled          = enabled,
+                        onEnabledChanged = { enabled = it },
+                        title            = stringResource(
+                            id = if (enabled || info.disabledLabel == null) {
+                                info.enabledLabel
+                            } else {
+                                info.disabledLabel
+                            },
+                        ),
+                    )
+                }
+            }
+
+            // ── Action button + extra buttons (only when enabled) ──────
+            AnimatedVisibility(visible = enabled) {
+                Column {
+                    info.enabledKey?.let { Spacer(Modifier.height(12.dp)) }
+
+                    SubduedOutlinedButton(
+                        onClick  = { info.onAction() },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 56.dp),
+                    ) {
+                        info.actionButtonIconRes?.let {
+                            Image(
+                                painter            = painterResource(id = it),
+                                contentDescription = stringResource(id = info.actionButtonTextRes),
+                                contentScale       = ContentScale.FillHeight,
+                                modifier           = Modifier.size(28.dp),
+                            )
+                        }
+                        Spacer(Modifier.size(12.dp))
+                        Text(
+                            text  = stringResource(id = info.actionButtonTextRes),
+                            style = MaterialTheme.typography.titleMedium,
+                        )
+                    }
+
+                    if (info.buttons.isNotEmpty()) {
+                        Spacer(Modifier.height(12.dp))
+
+                        BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
+                            val width = this.maxWidth
+
+                            var maxItemHeight by remember(info.buttons.toList()) { mutableIntStateOf(0) }
+                            var minTextSize   by remember(info.buttons.toList()) { mutableStateOf(16.sp) }
+
+                            FlowRow(
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalArrangement   = Arrangement.Center,
+                                modifier              = Modifier.fillMaxWidth(),
+                            ) {
+                                val itemsPerRow  = info.buttons.size.coerceAtMost(3)
+                                val columnWidth  = (width - (12.dp * (itemsPerRow - 1))) / itemsPerRow
+
+                                info.buttons.forEachIndexed { index, mainPageButton ->
+                                    ExtraButton(
+                                        info     = mainPageButton,
+                                        modifier = Modifier
+                                            .width(columnWidth)
+                                            .padding(
+                                                start = if (index == 0) 0.dp else 4.dp,
+                                                end   = if (index == info.buttons.lastIndex) 0.dp else 4.dp,
+                                            )
+                                            .onSizeChanged { s ->
+                                                if (s.height > maxItemHeight) maxItemHeight = s.height
+                                            }
+                                            .then(
+                                                if (maxItemHeight > 0) {
+                                                    with(LocalDensity.current) { Modifier.height(maxItemHeight.toDp()) }
+                                                } else Modifier,
+                                            ),
+                                        onFontSizeCalculated = { min ->
+                                            if (minTextSize.isUnspecified || min < minTextSize) minTextSize = min
+                                        },
+                                        maxFontSize = minTextSize,
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

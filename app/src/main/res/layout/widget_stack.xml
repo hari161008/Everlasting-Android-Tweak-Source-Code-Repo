@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@android:id/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:theme="@style/AppTheme"
+    android:clipToOutline="true"
+    android:background="@drawable/widget_stack_background"
+    tools:ignore="UseAppTint">
+
+    <LinearLayout
+        android:id="@+id/add_widget"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/pill"
+        android:foreground="@drawable/stack_button_ripple_symmetric"
+        android:clipChildren="true"
+        android:layout_gravity="center"
+        android:padding="16dp"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_baseline_add_24"
+            android:tint="?attr/colorOnPrimary"
+            android:contentDescription="@string/add_widget"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_widget"
+            android:textColor="?attr/colorOnPrimary"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/widget_content_wrapper"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ViewFlipper
+            android:id="@+id/widget_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:id="@+id/widget_content_even"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                />
+
+            <LinearLayout
+                android:id="@+id/widget_content_odd"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                />
+
+            <LinearLayout
+                android:id="@+id/widget_content_third"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                />
+
+        </ViewFlipper>
+
+        <LinearLayout
+            android:id="@+id/bottom_bar"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp"
+            android:paddingHorizontal="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/start_controls_wrapper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clipChildren="true"
+                android:background="@drawable/pill">
+
+                <FrameLayout
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:id="@+id/stack_configure"
+                    android:background="@drawable/stack_button_ripple_left">
+
+                    <ImageView
+                        android:id="@+id/stack_configure_img"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_baseline_settings_24"
+                        android:tint="?attr/colorOnPrimary"
+                        android:contentDescription="@string/settings"
+                        />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/divider_left"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="?attr/colorOnPrimary"
+                    />
+
+                <FrameLayout
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:id="@+id/stack_refresh"
+                    android:background="@drawable/stack_button_ripple_right">
+
+                    <ImageView
+                        android:id="@+id/stack_refresh_img"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/baseline_refresh_24"
+                        android:tint="?attr/colorOnPrimary"
+                        android:contentDescription="@string/refresh"
+                        />
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/stack_dot_row"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:paddingHorizontal="8dp"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:clipChildren="true"
+                    android:background="@drawable/pill" />
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:id="@+id/end_controls_wrapper"
+                android:background="@drawable/pill"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <FrameLayout
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:id="@+id/stack_backward"
+                    android:background="@drawable/stack_button_ripple_left">
+
+                    <ImageView
+                        android:id="@+id/stack_backward_img"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/arrow_left_24px"
+                        android:tint="?attr/colorOnPrimary"
+                        android:contentDescription="@string/previous"
+                        />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/divider_right"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="?attr/colorOnPrimary"
+                    />
+
+                <FrameLayout
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:id="@+id/stack_forward"
+                    android:background="@drawable/stack_button_ripple_right">
+
+                    <ImageView
+                        android:id="@+id/stack_forward_img"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/arrow_left_24px"
+                        android:rotationY="-180"
+                        android:tint="?attr/colorOnPrimary"
+                        android:contentDescription="@string/next"
+                        />
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

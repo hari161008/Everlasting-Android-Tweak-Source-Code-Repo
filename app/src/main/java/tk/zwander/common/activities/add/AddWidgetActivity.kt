@@ -1,0 +1,111 @@
+package tk.zwander.common.activities.add
+
+import android.content.Intent
+import android.os.Build
+import android.os.Bundle
+import android.view.MenuItem
+import androidx.compose.ui.unit.IntSize
+import androidx.compose.ui.unit.dp
+import com.bugsnag.android.performance.compose.MeasuredComposable
+import tk.zwander.common.activities.DismissOrUnlockActivity
+import tk.zwander.common.compose.add.AddWidgetLayout
+import tk.zwander.common.data.WidgetData
+import tk.zwander.common.data.WidgetSizeData
+import tk.zwander.common.util.componentInfoCompat
+import tk.zwander.common.util.componentNameCompat
+import tk.zwander.common.util.density
+import tk.zwander.common.util.setThemedContent
+import tk.zwander.common.util.shortcutIdManager
+import tk.zwander.common.util.toSafeBitmap
+import tk.zwander.lockscreenwidgets.data.list.LauncherItemListInfo
+import tk.zwander.lockscreenwidgets.data.list.LauncherShortcutListInfo
+import tk.zwander.lockscreenwidgets.data.list.ShortcutListInfo
+import tk.zwander.lockscreenwidgets.data.list.WidgetListInfo
+
+/**
+ * Manage the widget addition flow: selection, permissions, configurations, etc.
+ */
+abstract class AddWidgetActivity : BaseBindWidgetActivity() {
+    protected open val showShortcuts = true
+    protected open val showWidgetStackWidget = true
+
+    protected open val fullSize: IntSize
+        get() = IntSize(
+            display.dpToPx(width),
+            display.dpToPx(height),
+        )
+    protected abstract val gridSize: IntSize
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        /**
+         * We want the user to unlock the device when adding a widget, since potential configuration Activities
+         * won't show on the lock screen.
+         */
+        DismissOrUnlockActivity.launch(this)
+
+        setThemedContent {
+            MeasuredComposable(name = "AddWidgetLayout") {
+                AddWidgetLayout(
+                    showShortcuts = showShortcuts,
+                    showWidgetStackWidget = showWidgetStackWidget,
+                    fullSize = fullSize,
+                    gridSize = gridSize,
+                    onBack = onBackPressedDispatcher::onBackPressed,
+                ) {
+                    when (it) {
+                        is WidgetListInfo -> {
+                            tryBindWidget(it.itemInfo)
+                        }
+                        is ShortcutListInfo -> {
+                            tryBindShortcut(it)
+                        }
+                        is LauncherItemListInfo -> {
+                            val item = WidgetData.launcherItem(
+                                shortcutIdManager.allocateShortcutId(),
+                                it.appInfo.appInfo.packageName,
+                                it.itemInfo.componentInfoCompat.componentNameCompat,
+                                WidgetSizeData(1, 1),
+                            )
+
+                            addNewShortcut(item)
+                        }
+                        is LauncherShortcutListInfo -> {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                                val shortcut = WidgetData.shortcut(
+                                    this@AddWidgetActivity,
+                                    shortcutIdManager.allocateShortcutId(),
+                                    it.name, it.icon?.loadDrawable(this@AddWidgetActivity)?.toSafeBitmap(density, maxSize = 128.dp),
+                                    null, it.itemInfo.intent,
+                                    WidgetSizeData(1, 1)
+                                )
+
+                                addNewShortcut(shortcut)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar?.setDisplayShowHomeEnabled(true)
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+
+        DismissOrUnlockActivity.launch(this)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressedDispatcher.onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+}

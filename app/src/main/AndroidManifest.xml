@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         EVERLASTING CORE PERMISSIONS
+    ════════════════════════════════════════════════════════════════════════ -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_PHONE_CALL" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="moe.shizuku.manager.permission.API_V23" />
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.MANAGE_OWN_CALLS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Hardware features -->
+    <uses-feature android:name="android.hardware.sensor.compass"       android:required="false" />
+    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="false" />
+    <uses-feature android:name="android.hardware.sensor.gyroscope"     android:required="false" />
+    <uses-feature android:name="android.hardware.camera.flash"         android:required="false" />
+    <uses-feature android:name="android.hardware.sensor.proximity"     android:required="false" />
+    <uses-feature android:name="android.hardware.telephony"            android:required="false" />
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         HAIL PERMISSIONS
+    ════════════════════════════════════════════════════════════════════════ -->
+    <uses-sdk tools:overrideLibrary="rikka.shizuku.api, com.rosan.dhizuku.api"/>
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
+        tools:ignore="QueryAllPackagesPermission"/>
+    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES"/>
+    <uses-permission android:name="android.permission.FORCE_STOP_PACKAGES"
+        tools:ignore="ProtectedPermissions"/>
+    <uses-permission android:name="android.permission.CHANGE_COMPONENT_ENABLED_STATE"
+        tools:ignore="ProtectedPermissions"/>
+    <uses-permission android:name="android.permission.MANAGE_APP_OPS_MODES"
+        tools:ignore="ProtectedPermissions"/>
+    <uses-permission android:name="com.oasisfeng.island.permission.FREEZE_PACKAGE"/>
+    <uses-permission android:name="com.oasisfeng.island.permission.SUSPEND_PACKAGE"/>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         LOCKSCREEN WIDGETS PERMISSIONS
+    ════════════════════════════════════════════════════════════════════════ -->
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.BIND_APPWIDGET"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.ACCESS_HIDDEN_PROFILES" />
+    <uses-permission android:name="tk.zwander.lockscreenwidgets.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+
+    <!-- Huawei weather (used by some LSW widgets) -->
+    <uses-permission android:name="com.huawei.android.totemweather.permission.ACCESS_WEATHERCLOCK_PROVIDER" />
+    <uses-permission android:name="android.permission.ACCESS_WEATHERCLOCK_PROVIDER" />
+
+    <application
+        android:name=".EverlastingApp"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.EverlastingAndroidTweak"
+        tools:targetApi="31">
+
+        <!-- ══════════════════════════════════════════════════════════════════
+             EVERLASTING ACTIVITIES
+        ═══════════════════════════════════════════════════════════════════ -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/Theme.EverlastingAndroidTweak">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- SwiftSlate -->
+        <activity
+            android:name="com.musheer360.swiftslate.MainActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/Theme.EverlastingAndroidTweak" />
+
+        <!-- Watermark -->
+        <activity
+            android:name=".ui.activities.WatermarkActivity"
+            android:exported="false"
+            android:theme="@style/Theme.EverlastingAndroidTweak"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="image/*" />
+            </intent-filter>
+        </activity>
+
+        <!-- ══════════════════════════════════════════════════════════════════
+             EVERLASTING SERVICES
+        ═══════════════════════════════════════════════════════════════════ -->
+        <!-- Single merged accessibility service: Everlasting + Lock Screen Widgets + SwiftSlate AI -->
+        <service
+            android:name=".services.EverlastingAccessibilityService"
+            android:exported="true"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            tools:ignore="AccessibilityPolicy">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+        </service>
+
+
+        <service android:name=".services.EverlastingForegroundService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse" />
+        <service android:name=".features.musicleveler.MusicLevelerOverlayService"
+            android:exported="false" />
+        <service android:name=".features.navbar.NavBarOverlayService"
+            android:exported="false" />
+        <service android:name=".features.screensaver.ScreensaverService"
+            android:exported="true"
+            android:permission="android.permission.BIND_DREAM_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.dreams.DreamService" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data
+                android:name="android.service.dream"
+                android:resource="@xml/screensaver_config" />
+        </service>
+
+        <!-- QS Tiles -->
+        <service android:name=".features.tiles.UiBlurTileService" android:exported="true"
+            android:label="@string/tile_ui_blur" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE"/></intent-filter></service>
+        <service android:name=".features.tiles.MonoAudioTileService" android:exported="true"
+            android:label="@string/tile_mono_audio" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE"/></intent-filter></service>
+        <service android:name=".features.tiles.SoundModeTileService" android:exported="true"
+            android:label="@string/tile_sound_mode" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE"/></intent-filter></service>
+        <service android:name=".features.tiles.StayAwakeTileService" android:exported="true"
+            android:label="@string/tile_stay_awake" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE"/></intent-filter></service>
+        <service android:name=".features.tiles.AdaptiveBrightnessTileService" android:exported="true"
+            android:label="@string/tile_adaptive_brightness" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE"/></intent-filter></service>
+        <service android:name=".features.tiles.NfcTileService" android:exported="true"
+            android:label="@string/tile_nfc" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE"/></intent-filter></service>
+        <service android:name=".features.tiles.AodTileService" android:exported="true"
+            android:label="@string/tile_aod" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE"/></intent-filter></service>
+        <service android:name=".features.tiles.TapToWakeTileService" android:exported="true"
+            android:label="@string/tile_tap_to_wake" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE"/></intent-filter></service>
+        <service android:name=".features.tiles.SensitiveLockTileService" android:exported="true"
+            android:label="@string/tile_sensitive_lock" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE"/></intent-filter></service>
+        <service android:name=".features.tiles.PrivateDnsTileService" android:exported="true"
+            android:label="@string/tile_private_dns" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE"/></intent-filter></service>
+        <service android:name=".features.tiles.UsbDebuggingTileService" android:exported="true"
+            android:label="@string/tile_usb_debugging" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE"/></intent-filter></service>
+        <service android:name=".features.tiles.DevOptionsTileService" android:exported="true"
+            android:label="@string/tile_dev_options" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE"/></intent-filter></service>
+        <service android:name=".features.tiles.CaffeinateTileService" android:exported="true"
+            android:label="@string/tile_caffeinate" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE"/></intent-filter></service>
+        <service android:name=".features.tiles.FlipDndTileService" android:exported="true"
+            android:label="@string/tile_flip_dnd" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE"/></intent-filter></service>
+        <service android:name=".features.tiles.VolumeBoostTileService" android:exported="true"
+            android:label="@string/tile_volume_boost" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE"/></intent-filter></service>
+
+        <service android:name=".features.tiles.ScaleAnimationsTileService" android:exported="true"
+            android:label="@string/tile_scale_animations" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE"/></intent-filter></service>
+
+        <!-- ══════════════════════════════════════════════════════════════════
+             EVERLASTING RECEIVERS / PROVIDERS
+        ═══════════════════════════════════════════════════════════════════ -->
+        <receiver android:name=".services.BootReceiver" android:exported="true">
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".features.autoreboot.AutoRebootReceiver" android:exported="false" />
+
+        <!-- Notification Lighting + Flash Pulse -->
+        <service
+            android:name=".features.notiflight.NotificationLightingService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse" />
+        <receiver
+            android:name=".features.notiflight.FlashlightActionReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.coolappstore.everlastingandroidtweak.ACTION_PULSE_NOTIFICATION" />
+                <action android:name="com.coolappstore.everlastingandroidtweak.ACTION_FLASHLIGHT_TOGGLE" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".features.watermark.WatermarkReceiver" android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_SCANNER_SCAN_FILE" />
+                <data android:scheme="file" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <!-- Shizuku (one provider covers both Everlasting + LSW) -->
+        <provider
+            android:name="rikka.shizuku.ShizukuProvider"
+            android:authorities="${applicationId}.shizuku"
+            android:multiprocess="false"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.INTERACT_ACROSS_USERS_FULL" />
+
+        <!-- ══════════════════════════════════════════════════════════════════
+             HAIL APP FREEZER INTEGRATION
+        ═══════════════════════════════════════════════════════════════════ -->
+        <activity
+            android:name="com.aistra.hail.ui.main.MainActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.Hail">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.aistra.hail.ui.api.ApiActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:launchMode="singleInstance"
+            android:theme="@style/Theme.Hail.Translucent">
+            <intent-filter>
+                <action android:name="android.intent.action.SHOW_APP_INFO"/>
+                <action android:name="com.aistra.hail.action.LAUNCH"/>
+                <action android:name="com.aistra.hail.action.FREEZE"/>
+                <action android:name="com.aistra.hail.action.UNFREEZE"/>
+                <action android:name="com.aistra.hail.action.FREEZE_TAG"/>
+                <action android:name="com.aistra.hail.action.UNFREEZE_TAG"/>
+                <action android:name="com.aistra.hail.action.FREEZE_ALL"/>
+                <action android:name="com.aistra.hail.action.UNFREEZE_ALL"/>
+                <action android:name="com.aistra.hail.action.FREEZE_NON_WHITELISTED"/>
+                <action android:name="com.aistra.hail.action.FREEZE_AUTO"/>
+                <action android:name="com.aistra.hail.action.LOCK"/>
+                <action android:name="com.aistra.hail.action.LOCK_FREEZE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="hail"/>
+            </intent-filter>
+        </activity>
+        <receiver android:name="com.aistra.hail.receiver.DeviceAdminReceiver"
+            android:description="@string/action_lock"
+            android:exported="false"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <meta-data android:name="android.app.device_admin" android:resource="@xml/device_admin"/>
+            <intent-filter><action android:name="android.app.action.DEVICE_ADMIN_ENABLED"/></intent-filter>
+        </receiver>
+        <receiver android:name=".features.security.SecurityDeviceAdminReceiver"
+            android:description="@string/app_name"
+            android:exported="false"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <meta-data android:name="android.app.device_admin" android:resource="@xml/device_admin"/>
+            <intent-filter><action android:name="android.app.action.DEVICE_ADMIN_ENABLED"/></intent-filter>
+        </receiver>
+        <receiver android:name="com.aistra.hail.receiver.ScreenOffReceiver" android:exported="false"/>
+        <receiver android:name="com.aistra.hail.receiver.UnsuspendedReceiver" android:exported="false">
+            <intent-filter><action android:name="android.intent.action.PACKAGE_UNSUSPENDED_MANUALLY"/></intent-filter>
+        </receiver>
+        <service android:name="com.aistra.hail.services.QSTileService" android:exported="true"
+            android:icon="@drawable/ic_round_frozen" android:label="@string/tile_action"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE"/></intent-filter>
+        </service>
+        <service android:name="com.aistra.hail.services.AutoFreezeService"
+            android:foregroundServiceType="specialUse" android:exported="true"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService"/>
+            </intent-filter>
+        </service>
+
+        <!-- ══════════════════════════════════════════════════════════════════
+             LOCKSCREEN WIDGETS INTEGRATION
+        ═══════════════════════════════════════════════════════════════════ -->
+
+        <!-- Main LSW activity – launched from Everlasting's Lock Screen Widgets card -->
+        <activity
+            android:name="tk.zwander.lockscreenwidgets.MainActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name="tk.zwander.lockscreenwidgets.activities.add.AddFrameWidgetActivity"
+            android:exported="true" android:label="@string/add_widget"
+            android:excludeFromRecents="true" android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar" android:windowSoftInputMode="adjustResize" />
+
+        <activity android:name="tk.zwander.lockscreenwidgets.activities.add.AddWidgetStackWidgetActivity"
+            android:exported="true" android:label="@string/add_widget"
+            android:excludeFromRecents="true" android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar" android:windowSoftInputMode="adjustResize" />
+
+        <activity android:name="tk.zwander.common.activities.add.AddTileWidgetActivity"
+            android:exported="true" android:label="@string/add_widget"
+            android:excludeFromRecents="true" android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar" android:windowSoftInputMode="adjustResize" />
+
+        <activity android:name="tk.zwander.common.activities.OnboardingActivity"
+            android:exported="false" android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity android:name="tk.zwander.common.activities.DismissOrUnlockActivity"
+            android:exported="false" android:launchMode="singleInstancePerTask"
+            android:excludeFromRecents="true" android:theme="@style/AppTheme.Null" />
+
+        <activity android:name="tk.zwander.common.activities.HideForIDsActivity"
+            android:exported="false" android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity android:name="tk.zwander.lockscreenwidgets.activities.UsageActivity"
+            android:exported="false" android:label="@string/usage"
+            android:theme="@style/AppTheme.NoActionBar" android:windowSoftInputMode="adjustResize" />
+
+        <activity android:name="tk.zwander.lockscreenwidgets.activities.add.ReconfigureFrameWidgetActivity"
+            android:exported="false" android:theme="@style/AppTheme.Null"
+            android:excludeFromRecents="true" />
+
+        <activity android:name="tk.zwander.lockscreenwidgets.activities.add.WidgetStackReconfigureActivity"
+            android:exported="false" android:theme="@style/AppTheme.Null"
+            android:excludeFromRecents="true" />
+
+        <activity android:name="tk.zwander.widgetdrawer.activities.add.ReconfigureDrawerWidgetActivity"
+            android:exported="false" android:theme="@style/AppTheme.Null"
+            android:excludeFromRecents="true" />
+
+        <activity android:name="tk.zwander.widgetdrawer.activities.add.AddDrawerWidgetActivity"
+            android:exported="false" android:label="@string/add_widget"
+            android:excludeFromRecents="true" android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar" android:windowSoftInputMode="adjustResize" />
+
+        <activity android:name="tk.zwander.widgetdrawer.activities.TriggerActivity"
+            android:label="@string/open_drawer" android:theme="@style/AppTheme.Null"
+            android:exported="true" android:launchMode="singleInstancePerTask">
+            <intent-filter><action android:name="android.intent.action.MAIN" /></intent-filter>
+        </activity>
+
+        <activity android:name="tk.zwander.widgetdrawer.activities.ShortcutConfigActivity"
+            android:exported="true" android:excludeFromRecents="true"
+            android:theme="@style/AppTheme.Null" android:label="@string/open_widget_drawer">
+            <intent-filter><action android:name="android.intent.action.CREATE_SHORTCUT" /></intent-filter>
+        </activity>
+
+        <activity android:name="tk.zwander.common.activities.HideOnAppsChooserActivity"
+            android:label="@string/settings_screen_hide_on_present_apps"
+            android:exported="false" android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity android:name="tk.zwander.common.activities.PermissionIntentLaunchActivity"
+            android:exported="false" android:theme="@style/AppTheme.Null"
+            android:launchMode="singleInstancePerTask" android:excludeFromRecents="true" />
+
+        <activity android:name="tk.zwander.lockscreenwidgets.activities.TaskerCanShowActivity"
+            android:exported="true" android:label="@string/allow_show_frame"
+            android:theme="@style/AppTheme.Null">
+            <intent-filter><action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" /></intent-filter>
+        </activity>
+        <activity android:name="tk.zwander.lockscreenwidgets.activities.TaskerCanNotShowActivity"
+            android:exported="true" android:label="@string/disallow_show_frame"
+            android:theme="@style/AppTheme.Null">
+            <intent-filter><action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" /></intent-filter>
+        </activity>
+        <activity android:name="tk.zwander.lockscreenwidgets.activities.TaskerForceShowActivity"
+            android:exported="true" android:label="@string/force_show_frame"
+            android:theme="@style/AppTheme.Null">
+            <intent-filter><action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" /></intent-filter>
+        </activity>
+        <activity android:name="tk.zwander.lockscreenwidgets.activities.TaskerUnForceShowActivity"
+            android:exported="true" android:label="@string/unforce_show_frame"
+            android:theme="@style/AppTheme.Null">
+            <intent-filter><action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" /></intent-filter>
+        </activity>
+        <activity android:name="tk.zwander.lockscreenwidgets.activities.TaskerIsAllowedToShowFrame"
+            android:exported="true" android:label="@string/frame_allowed_to_show"
+            android:theme="@style/AppTheme.Null">
+            <intent-filter><action android:name="com.twofortyfouram.locale.intent.action.EDIT_CONDITION" /></intent-filter>
+        </activity>
+        <activity android:name="tk.zwander.lockscreenwidgets.activities.TaskerIsShowingFrame"
+            android:exported="true" android:label="@string/is_showing_frame"
+            android:theme="@style/AppTheme.Null">
+            <intent-filter><action android:name="com.twofortyfouram.locale.intent.action.EDIT_CONDITION" /></intent-filter>
+        </activity>
+        <activity android:name="tk.zwander.lockscreenwidgets.activities.TaskerIsForceShowingFrame"
+            android:exported="true" android:label="@string/frame_forced_to_show"
+            android:theme="@style/AppTheme.Null">
+            <intent-filter><action android:name="com.twofortyfouram.locale.intent.action.EDIT_CONDITION" /></intent-filter>
+        </activity>
+        <activity android:name="tk.zwander.widgetdrawer.activities.TaskerShowDrawerActivity"
+            android:exported="true" android:label="@string/open_drawer"
+            android:theme="@style/AppTheme.Null">
+            <intent-filter><action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" /></intent-filter>
+        </activity>
+        <activity android:name="tk.zwander.widgetdrawer.activities.TaskerHideDrawerActivity"
+            android:exported="true" android:label="@string/close_widget_drawer"
+            android:theme="@style/AppTheme.Null">
+            <intent-filter><action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" /></intent-filter>
+        </activity>
+        <activity android:name="tk.zwander.widgetdrawer.activities.TaskerIsShowingDrawer"
+            android:exported="true" android:label="@string/is_showing_drawer"
+            android:theme="@style/AppTheme.Null">
+            <intent-filter><action android:name="com.twofortyfouram.locale.intent.action.EDIT_CONDITION" /></intent-filter>
+        </activity>
+
+        <activity android:name="tk.zwander.lockscreenwidgets.activities.WidgetStackConfigure"
+            android:theme="@style/AppTheme.NoActionBar" android:windowSoftInputMode="adjustResize"
+            android:taskAffinity="@string/configure_task_affinity"
+            android:excludeFromRecents="true" android:exported="true">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/></intent-filter>
+        </activity>
+
+        <activity android:name="tk.zwander.common.activities.SelectIconPackActivity"
+            android:exported="false" android:label="@string/choose_icon_pack"
+            android:windowSoftInputMode="adjustResize" android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="tk.zwander.common.activities.SelectIconFromPackActivity"
+            android:exported="false" android:label="@string/choose_icon_override"
+            android:windowSoftInputMode="adjustResize" android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="tk.zwander.widgetdrawer.activities.ComposeDrawerSettingsActivity"
+            android:exported="false" android:windowSoftInputMode="adjustResize"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="tk.zwander.lockscreenwidgets.activities.ComposeFrameSettingsActivity"
+            android:exported="false" android:windowSoftInputMode="adjustResize"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="tk.zwander.common.activities.WidgetStackListActivity"
+            android:exported="true" android:windowSoftInputMode="adjustResize"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+
+        <!-- LSW notification count is now handled by AutoFreezeService above -->
+
+        <!-- LSW QS Tiles -->
+        <service android:name="tk.zwander.common.tiles.EnableDisableTile"
+            android:label="@string/frame_enabled"
+            android:icon="@drawable/ic_baseline_power_settings_new_24"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true" tools:targetApi="n">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter>
+        </service>
+        <service android:name="tk.zwander.common.tiles.EnableDisableDrawerTile"
+            android:label="@string/drawer_enabled"
+            android:icon="@drawable/ic_baseline_power_settings_new_24"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true" tools:targetApi="n">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter>
+        </service>
+        <service android:name="tk.zwander.common.tiles.widget.WidgetTileOne"
+            android:label="@string/app_name" android:icon="@drawable/ic_baseline_launch_24"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true" tools:targetApi="n">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter>
+        </service>
+        <service android:name="tk.zwander.common.tiles.widget.WidgetTileTwo"
+            android:label="@string/app_name" android:icon="@drawable/ic_baseline_launch_24"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true" tools:targetApi="n">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter>
+        </service>
+        <service android:name="tk.zwander.common.tiles.widget.WidgetTileThree"
+            android:label="@string/app_name" android:icon="@drawable/ic_baseline_launch_24"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true" tools:targetApi="n">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter>
+        </service>
+        <service android:name="tk.zwander.common.tiles.widget.WidgetTileFour"
+            android:label="@string/app_name" android:icon="@drawable/ic_baseline_launch_24"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true" tools:targetApi="n">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter>
+        </service>
+        <service android:name="tk.zwander.common.tiles.widget.WidgetTileFive"
+            android:label="@string/app_name" android:icon="@drawable/ic_baseline_launch_24"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true" tools:targetApi="n">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter>
+        </service>
+
+        <service android:name="tk.zwander.common.appwidget.RemoteViewsProxyService"
+            android:exported="true" android:permission="android.permission.BIND_REMOTEVIEWS" />
+        <service android:name="tk.zwander.common.appwidget.WidgetStackMonitorService"
+            android:foregroundServiceType="specialUse" android:exported="false" />
+
+        <!-- LSW App-Widget Providers -->
+        <receiver android:name="tk.zwander.lockscreenwidgets.appwidget.IDListProvider"
+            android:label="@string/id_list" android:exported="true">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/id_list_provider_info" />
+        </receiver>
+        <receiver android:name="tk.zwander.lockscreenwidgets.appwidget.BlankWidgetProvider"
+            android:label="@string/blank_widget" android:exported="true">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/blank_widget_provider_info" />
+        </receiver>
+        <receiver android:name="tk.zwander.lockscreenwidgets.appwidget.WidgetStackProvider"
+            android:label="@string/widget_stack" android:exported="true">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_stack_provider" />
+        </receiver>
+        <receiver android:name="tk.zwander.common.appwidget.OpenDrawerProvider"
+            android:label="@string/open_drawer" android:exported="true">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/open_drawer_provider_info" />
+        </receiver>
+        <receiver android:name="tk.zwander.common.receivers.OpenDrawerReceiver"
+            android:label="@string/open_drawer" android:exported="true"
+            tools:ignore="ExportedReceiver">
+            <intent-filter>
+                <action android:name="${applicationId}.action.OPEN_DRAWER" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="tk.zwander.common.receivers.PackageReplacedReceiver"
+            android:exported="true">
+            <intent-filter><action android:name="android.intent.action.MY_PACKAGE_REPLACED" /></intent-filter>
+        </receiver>
+
+        <!-- Tasker integration -->
+        <service android:name="com.joaomgcd.taskerpluginlibrary.action.IntentServiceAction"
+            android:exported="true" tools:ignore="ExportedService">
+            <meta-data android:name="canBind" android:value="true" />
+            <intent-filter><action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING" /></intent-filter>
+        </service>
+        <service android:name="com.joaomgcd.taskerpluginlibrary.condition.IntentServiceCondition"
+            android:exported="true" tools:ignore="ExportedService">
+            <meta-data android:name="canBind" android:value="true" />
+            <intent-filter><action android:name="com.twofortyfouram.locale.intent.action.QUERY_CONDITION" /></intent-filter>
+        </service>
+
+        <!-- Bugsnag API key (harmless since Bugsnag is disabled at runtime) -->
+        <meta-data android:name="com.bugsnag.android.API_KEY"
+            android:value="a7b3e6e6f38ef16b7c3e80cb689f78a3"/>
+        <meta-data android:name="google_analytics_adid_collection_enabled" android:value="false" />
+
+    </application>
+</manifest>

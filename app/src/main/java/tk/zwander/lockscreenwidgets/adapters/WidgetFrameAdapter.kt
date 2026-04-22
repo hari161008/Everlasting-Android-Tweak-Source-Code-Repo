@@ -1,0 +1,103 @@
+package tk.zwander.lockscreenwidgets.adapters
+
+import android.appwidget.AppWidgetProviderInfo
+import android.content.Context
+import android.view.View
+import android.view.ViewGroup
+import tk.zwander.common.activities.SelectIconPackActivity
+import tk.zwander.common.adapters.BaseAdapter
+import tk.zwander.common.data.WidgetData
+import tk.zwander.common.listeners.WidgetResizeListener
+import tk.zwander.common.util.Event
+import tk.zwander.common.util.eventManager
+import tk.zwander.common.util.frameSizeAndPosition
+import tk.zwander.common.util.orDefault
+import tk.zwander.lockscreenwidgets.activities.add.ReconfigureFrameWidgetActivity
+import com.coolappstore.everlastingandroidtweak.databinding.ComposeViewHolderBinding
+import tk.zwander.lockscreenwidgets.util.FramePrefs
+import tk.zwander.lockscreenwidgets.util.MainWidgetFrameDelegate
+
+/**
+ * The adapter for the widget frame itself.
+ */
+open class WidgetFrameAdapter(
+    context: Context,
+    viewModel: MainWidgetFrameDelegate.IWidgetFrameViewModel<*, *>,
+) : BaseAdapter<MainWidgetFrameDelegate.IWidgetFrameViewModel<*, *>>(
+    context,
+    viewModel,
+) {
+    override val colCount: Int
+        get() = FramePrefs.getColCountForFrame(context, viewModel.frameId)
+    override val rowCount: Int
+        get() = FramePrefs.getRowCountForFrame(context, viewModel.frameId)
+    override val minRowSpan: Int
+        get() = 1
+    override val rowSpanForAddButton: Int
+        get() = rowCount
+    override var currentWidgets: Collection<WidgetData>
+        get() = FramePrefs.getWidgetsForFrame(context, viewModel.frameId)
+        set(value) {
+            FramePrefs.setWidgetsForFrame(context, viewModel.frameId, value)
+        }
+
+    override fun launchAddActivity() {
+        context.eventManager.sendEvent(Event.LaunchAddWidget(viewModel.frameId))
+    }
+
+    override fun launchReconfigure(id: Int, providerInfo: AppWidgetProviderInfo) {
+        ReconfigureFrameWidgetActivity.launch(context, id, viewModel.frameId, providerInfo)
+    }
+
+    override fun View.onWidgetResize(
+        data: WidgetData,
+        params: ViewGroup.LayoutParams,
+        amount: Int,
+        direction: Int
+    ) {
+        params.width =
+            params.width / colCount * (data.size?.safeWidgetWidthSpan ?: 1)
+        params.height =
+            params.height / rowCount * (data.size?.safeWidgetHeightSpan ?: 1)
+    }
+
+    override fun launchShortcutIconOverride(id: Int) {
+        SelectIconPackActivity.launchForOverride(context, id)
+    }
+
+    override fun getThresholdPx(which: WidgetResizeListener.Which): Int {
+        return context.run {
+            val display = viewModel.lsDisplay.orDefault(this)
+            val frameSize = frameSizeAndPosition.getSizeForType(viewModel.saveMode, display)
+            if (which == WidgetResizeListener.Which.LEFT || which == WidgetResizeListener.Which.RIGHT) {
+                display.dpToPx(frameSize.x.toInt()) / colCount
+            } else {
+                display.dpToPx(frameSize.y.toInt()) / rowCount
+            }
+        }
+    }
+
+    override fun createWidgetViewHolder(view: ComposeViewHolderBinding): WidgetVH {
+        return WidgetFrameWidgetVH(view)
+    }
+
+    inner class WidgetFrameWidgetVH(view: ComposeViewHolderBinding) : WidgetVH(view) {
+        override suspend fun onEvent(event: Event) {
+            super.onEvent(event)
+
+            when (event) {
+                is Event.FrameMoveFinished -> {
+                    if (event.frameId == viewModel.frameId) {
+                        val pos = bindingAdapterPosition
+
+                        if (pos != -1 && pos < widgets.size) {
+                            onResize(widgets[pos], 0, 1)
+                        }
+                    }
+                }
+
+                else -> {}
+            }
+        }
+    }
+}

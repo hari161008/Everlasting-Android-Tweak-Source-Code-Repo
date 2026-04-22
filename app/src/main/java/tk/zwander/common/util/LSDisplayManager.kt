@@ -1,0 +1,276 @@
+package tk.zwander.common.util
+
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.ContextWrapper
+import android.graphics.Point
+import android.hardware.display.DisplayManager
+import android.os.Build
+import android.view.Display
+import android.view.Surface
+import android.view.WindowManager
+import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
+import tk.zwander.lockscreenwidgets.App
+import tk.zwander.lockscreenwidgets.services.Accessibility
+import kotlin.math.roundToInt
+
+// Hidden DisplayManager category constants — resolved via reflection with safe fallbacks.
+private val DISPLAY_CATEGORY_BUILT_IN: String = try {
+    DisplayManager::class.java.getDeclaredField("DISPLAY_CATEGORY_BUILT_IN_DISPLAYS")
+        .also { it.isAccessible = true }.get(null) as String
+} catch (_: Exception) { "android.hardware.display.category.BUILT_IN_DISPLAYS" }
+
+private val DISPLAY_CATEGORY_ALL_DISABLED: String = try {
+    DisplayManager::class.java.getDeclaredField("DISPLAY_CATEGORY_ALL_INCLUDING_DISABLED")
+        .also { it.isAccessible = true }.get(null) as String
+} catch (_: Exception) { "android.hardware.display.category.ALL_INCLUDING_DISABLED" }
+
+val Context.lsDisplayManager: LSDisplayManager
+    get() = LSDisplayManager.getInstance(this)
+
+fun LSDisplay?.orDefault(context: Context): LSDisplay {
+    return this ?: run {
+        val availableDisplays = context.lsDisplayManager.availableDisplays.value.values
+        availableDisplays.find { it.display.displayId == Display.DEFAULT_DISPLAY }
+            ?:availableDisplays.first()
+    }
+}
+
+class LSDisplayManager private constructor(context: Context) : ContextWrapper(context), CoroutineScope by App.instance {
+    companion object {
+        @SuppressLint("StaticFieldLeak")
+        private var instance: LSDisplayManager? = null
+
+        @Synchronized
+        fun getInstance(context: Context): LSDisplayManager {
+            return instance ?: run {
+                LSDisplayManager(context.safeApplicationContext).also {
+                    instance = it
+                }
+            }
+        }
+    }
+
+    val multiDisplaySupported = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
+
+    val displayManager = getSystemService(DISPLAY_SERVICE) as DisplayManager
+
+    private val displayListener = object : DisplayManager.DisplayListener {
+        override fun onDisplayAdded(displayId: Int) {
+            logUtils.normalLog("Display $displayId added", null)
+
+            processDisplay(displayId)
+        }
+        override fun onDisplayRemoved(displayId: Int) {
+            logUtils.debugLog("Display $displayId removed", null)
+            availableDisplays.remove(displayId)
+        }
+        override fun onDisplayChanged(displayId: Int) {
+            logUtils.debugLog("Display $displayId changed", null)
+
+            processDisplay(displayId)
+        }
+    }
+
+    val availableDisplays = MutableStateFlow(mapOf<Int, LSDisplay>())
+    val isLikelyRazr = context.isLikelyRazr
+    val displayAndWmCache = MutableStateFlow<Map<String, DisplayAndWindowManager>>(mapOf())
+
+    val displayPowerStates: StateFlow<DisplayPowerStates> = availableDisplays.map { currentDisplays ->
+        val states = currentDisplays.entries.associate { (_, display) -> display.uniqueIdCompat to display.isOn }
+        val anyOn = states.any { (_, value) -> value }
+
+        DisplayPowerStates(
+            displayStates = states,
+            anyOn = anyOn,
+        )
+    }.stateIn(scope = this, started = SharingStarted.Eagerly, initialValue = DisplayPowerStates())
+
+    val isAnyDisplayOn: Boolean
+        get() = displayPowerStates.value.anyOn
+
+    fun onCreate() {
+        fetchDisplays()
+
+        displayManager.registerDisplayListener(displayListener, null)
+    }
+
+    fun findDisplayByStringId(displayId: String): LSDisplay? {
+        logUtils.debugLog("Looking for display with string ID $displayId", null)
+
+        return availableDisplays.value.values.firstOrNull { display ->
+            display.uniqueIdCompat == displayId ||
+                    display.displayId.toString() == displayId
+        }
+    }
+
+    fun collectDisplay(displayId: String): Flow<LSDisplay?> {
+        logUtils.debugLog("Collecting display with ID $displayId")
+
+        return availableDisplays.map {
+            it.values.firstOrNull { display ->
+                display.uniqueIdCompat == displayId ||
+                        (display.displayId == Display.DEFAULT_DISPLAY &&
+                                displayId.toIntOrNull() == Display.DEFAULT_DISPLAY)
+            }
+        }
+    }
+
+    private fun processDisplay(displayId: Int) {
+        val display = displayManager.getDisplay(displayId)
+
+        if (display == null) {
+            logUtils.debugLog("Unable to retrieve display $displayId for add", null)
+            return
+        }
+
+        if (!display.isBuiltIn(isLikelyRazr)) {
+            logUtils.debugLog("Display isn't internal, removing if exists and skipping processing", null)
+            availableDisplays.remove(displayId)
+            return
+        }
+
+        if (!multiDisplaySupported && displayId != Display.DEFAULT_DISPLAY) {
+            logUtils.debugLog("Multi-display isn't supported and display $displayId isn't default display", null)
+            availableDisplays.remove(displayId)
+            return
+        }
+
+        availableDisplays[displayId] = LSDisplay(
+            display = display,
+            density = Density(createDisplayContextCompat(display)),
+        ).also {
+            logUtils.debugLog("Processed display ${it.loggingId}", null)
+        }
+    }
+
+    fun fetchDisplays() {
+        val builtInDisplays = displayManager.getDisplays(DISPLAY_CATEGORY_BUILT_IN)
+        val allIncludingDisabled = displayManager.getDisplays(DISPLAY_CATEGORY_ALL_DISABLED)
+            .filter { it.isBuiltIn(isLikelyRazr) }
+        // Samsung has extra filtering on DISPLAY_CATEGORY_ALL_INCLUDING_DISABLED but not this.
+        val samsung = displayManager.getDisplays("com.samsung.android.hardware.display.category.BUILTIN")
+            .filter { it.isBuiltIn(isLikelyRazr) }
+        val allDisplays = displayManager.displays.filter {
+            it.isBuiltIn(isLikelyRazr)
+        }
+        val concatenatedDisplays = (builtInDisplays + allIncludingDisabled + allDisplays + samsung)
+            .filter {
+                (multiDisplaySupported || it.displayId == Display.DEFAULT_DISPLAY)
+            }
+            .toSet()
+
+        availableDisplays.value = concatenatedDisplays.map {
+            LSDisplay(
+                display = it,
+                density = Density(createDisplayContextCompat(it)),
+            )
+        }.associateBy { it.displayId }
+
+        logUtils.debugLog("Got displays ${availableDisplays.value.values.map { it.loggingId }}", null)
+    }
+
+    suspend fun handleDisplayUpdates(
+        accessibility: Accessibility,
+    ) {
+        availableDisplays.collect { displays ->
+            // Not super efficient since any time the available displays change
+            // every cached display will be wiped and recreated, but there
+            // isn't a great way to check for stale Display objects.
+            displayAndWmCache.value = displays.values.associate { display ->
+                val displayContext = accessibility.createDisplayContextCompat(display.display)
+                val windowManager =
+                    displayContext.getSystemService(WINDOW_SERVICE) as WindowManager
+
+                display.uniqueIdCompat to DisplayAndWindowManager(display, windowManager)
+            }
+        }
+    }
+}
+
+class LSDisplay(
+    val display: Display,
+    val density: Density,
+) {
+    val displayId: Int = display.displayId
+
+    val realSize: Point by lazy {
+        val size = rotatedRealSize
+        val currentRotation = display.rotation
+
+        if (currentRotation == Surface.ROTATION_270 || currentRotation == Surface.ROTATION_90) {
+            Point(size.y, size.x)
+        } else {
+            size
+        }
+    }
+
+    val rotatedRealSize: Point
+        get() = Point().apply {
+            @Suppress("DEPRECATION")
+            display.getRealSize(this)
+        }
+
+    val screenOrientation: Int
+        get() = display.rotation
+
+    val uniqueIdCompat: String
+        get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            try {
+                val m = Display::class.java.getDeclaredMethod("getUniqueId")
+                m.isAccessible = true
+                m.invoke(display) as? String ?: display.displayId.toString()
+            } catch (_: Exception) { display.displayId.toString() }
+        } else {
+            display.displayId.toString()
+        }
+
+    val loggingId: String
+        get() = "$uniqueIdCompat,$displayId"
+
+    val isOn: Boolean
+        get() = display.state == Display.STATE_ON
+
+    fun dpToPx(dpValue: Number): Int {
+        return with (density) {
+            dpValue.toDouble().dp.roundToPx()
+        }
+    }
+
+    fun pxToDp(pxValue: Number): Float {
+        return with (density) {
+            pxValue.toDouble().roundToInt().toDp().value
+        }
+    }
+}
+
+data class DisplayPowerStates(
+    val displayStates: Map<String, Boolean> = mapOf(),
+    val anyOn: Boolean = false,
+)
+
+private fun Display.isBuiltIn(isLikelyRazr: Boolean): Boolean {
+    val displayType = try {
+        val m = Display::class.java.getDeclaredMethod("getType")
+        m.isAccessible = true
+        m.invoke(this) as Int
+    } catch (_: Exception) { -1 }
+    val typeInternal = try {
+        Display::class.java.getDeclaredField("TYPE_INTERNAL")
+            .also { it.isAccessible = true }.getInt(null)
+    } catch (_: Exception) { 1 }
+    return displayType == typeInternal || (isLikelyRazr && displayId == 1)
+}
+
+data class DisplayAndWindowManager(
+    val display: LSDisplay? = null,
+    val windowManager: WindowManager? = null,
+)
