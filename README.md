@@ -1,42 +1,28 @@
 # Everlasting-Android-Tweak-Source-Code-Repo
 
-Since the original repo is being banned, this repo is hoisted
-
-
+Since the original repo is being banned, thisis a new repo is which is being hoisted
 
 <br>
 
+# Credits To These Apps Which I Have Forked:
 
+[SwiftSlate](https://github.com/Musheer360/SwiftSlate)
 
-\# Credits To These Apps Which I Have Forked:
+[Lock screen widgets](https://github.com/zacharee/LockscreenWidgets)
 
-\[SwiftSlate](https://github.com/Musheer360/SwiftSlate)
+[Fake power Off](https://github.com/BinitDOX/FakePowerOff)
 
-\[Lock screen widgets](https://github.com/zacharee/LockscreenWidgets)
-
-\[Fake power Off](https://github.com/BinitDOX/FakePowerOff)
-
-\[Essentials](https://github.com/sameerasw/essentials)
-
-
+[Essentials](https://github.com/sameerasw/essentials)
 
 <br>
 
+# 📦 Latest Releases
 
-
-\# 📦 Latest Releases
-
-GitHub: \[Download](https://github.com/hari161008/Everlasting-Android-Tweak-Source-Code-Repo) ⬇️
-
-
+GitHub: [Download](https://github.com/hari161008/Everlasting-Android-Tweak-Source-Code-Repo) ⬇️
 
 <br>
 
-
-
-\# 🚀 Telegram Links
-
-
+# 🚀 Telegram Links
 
 🌐 Cool Apps Recommending Channel:
 
