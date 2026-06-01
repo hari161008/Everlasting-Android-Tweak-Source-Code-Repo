@@ -76,88 +76,87 @@ GitHub: [Download](https://github.com/hari161008/Everlasting-Android-Tweak-Sourc
   <img src="https://raw.githubusercontent.com/hari161008/Website-For-Everlasting-Android-Tweak/main/Everlasting%20Android%20Tweak/Screenshots/12.png" width="32%"/>
 </p>
 
-# Features of Everlasting Android Tweak .✦ ݁˖
+Features of Everlasting Android Tweak .✦ ݁˖
 
-┈➤ Gestures
+┈➤ Gestures<br><br>
 
-• 🔦 Shake for Torch – Shake your phone to toggle the flashlight
-• 📸 Twist for Camera – Twist your wrist to quickly open the camera
-• 👆 Double Tap Back – Double-tap the back for torch or custom app
-• 🔕 Flip to DND – Flip device face-down to enable Do Not Disturb
-• ⚡ Charging Animation – Beautiful animation when charger connects
-• 📱 Custom Nav Bar – Overlay your own custom navigation bar
+• 🔦 Shake for Torch – Shake your phone to toggle the flashlight<br>
+• 📸 Twist for Camera – Twist your wrist to quickly open the camera<br>
+• 👆 Double Tap Back – Double-tap the back for torch or custom app<br>
+• 🔕 Flip to DND – Flip device face-down to enable Do Not Disturb<br>
+• ⚡ Charging Animation – Beautiful animation when charger connects<br>
+• 📱 Custom Nav Bar – Overlay your own custom navigation bar<br><br>
 
-┈➤ Power & Buttons
+┈➤ Power & Buttons<br><br>
 
-• 🔌 Custom Power Menu – Replace the default system power dialog
-• ⚡ Double Power Press – Trigger actions with two quick presses
-• 🔘 Screen-Off Actions – Long-press buttons even when screen is off
-• 🎭 Fake Power Off – Simulate a realistic fake shutdown
+• 🔌 Custom Power Menu – Replace the default system power dialog<br>
+• ⚡ Double Power Press – Trigger actions with two quick presses<br>
+• 🔘 Screen-Off Actions – Long-press buttons even when screen is off<br>
+• 🎭 Fake Power Off – Simulate a realistic fake shutdown<br><br>
 
-┈➤ Audio & Haptics
+┈➤ Audio & Haptics<br><br>
 
-• 🎚️ Built-in Equalizer – Fine-tune audio with a 5-band EQ
-• 🔊 Volume Booster – Increase volume beyond system limits
-• 🎛️ Volume Styles – Customize the volume panel UI
-• 📳 Custom Haptics – Adjust tap & scroll vibration feedback
-• 🔔 Custom Sounds – Set sounds for lock, unlock, tap & charging
-• ⏰ Call/Alarm Vibrations – Custom vibration patterns
+• 🎚️ Built-in Equalizer – Fine-tune audio with a 5-band EQ<br>
+• 🔊 Volume Booster – Increase volume beyond system limits<br>
+• 🎛️ Volume Styles – Customize the volume panel UI<br>
+• 📳 Custom Haptics – Adjust tap & scroll vibration feedback<br>
+• 🔔 Custom Sounds – Set sounds for lock, unlock, tap & charging<br>
+• ⏰ Call/Alarm Vibrations – Custom vibration patterns<br><br>
 
-┈➤ Customization
+┈➤ Customization<br><br>
 
-• 🧩 Lock Screen Widgets – Add widgets directly to your lock screen
-• ⚙️ Custom QS Tiles – Add 15+ quick settings tiles
-• 🎨 Eye Dropper – Pick any color from your screen
-• 🧭 Compass – Live compass with animated UI
+• 🧩 Lock Screen Widgets – Add widgets directly to your lock screen<br>
+• ⚙️ Custom QS Tiles – Add 15+ quick settings tiles<br>
+• 🎨 Eye Dropper – Pick any color from your screen<br>
+• 🧭 Compass – Live compass with animated UI<br><br>
 
-┈➤ Visuals
+┈➤ Visuals<br><br>
 
-• 🌌 Screensaver – Beautiful themed screensavers
-• 🖼️ Wallpaper Effects – Pixel-style wallpaper enhancements
-• 🤖 AI Image Upscaler – Upscale images to 2× or 4×
-• 📷 Watermark Photos – Add EXIF overlay & custom frames
+• 🌌 Screensaver – Beautiful themed screensavers<br>
+• 🖼️ Wallpaper Effects – Pixel-style wallpaper enhancements<br>
+• 🤖 AI Image Upscaler – Upscale images to 2× or 4×<br>
+• 📷 Watermark Photos – Add EXIF overlay & custom frames<br><br>
 
-┈➤ Productivity
+┈➤ Productivity<br><br>
 
-• ❄️ App Freezer – Freeze, hide, or suspend apps (via Hail)
-• 🔄 App Updater – Check GitHub for sideloaded app updates
-• 🔋 Charge Limit Alarm – Get notified at a set battery level
-• ⏳ Keep Screen On – Prevent screen sleep + quick tile
+• ❄️ App Freezer – Freeze, hide, or suspend apps (via Hail)<br>
+• 🔄 App Updater – Check GitHub for sideloaded app updates<br>
+• 🔋 Charge Limit Alarm – Get notified at a set battery level<br>
+• ⏳ Keep Screen On – Prevent screen sleep + quick tile<br><br>
 
-┈➤ Device & System (Not working right now)
+┈➤ Device & System (Not working right now)<br><br>
 
-• 📊 Task Manager – View & kill running processes
-• 💻 Terminal – Run shell commands on your device
-• 🧹 Cache Cleaner – Clear app cache (via Shizuku)
-• 🔐 Shizuku Manager – Control Shizuku service & permissions
-• 🖥️ Secondary Display – Cast content to another screen
-• 🔁 Auto Reboot – Schedule automatic restarts
-• 🧩 Hidden Features – Unlock hidden Android settings
-• 🗺️ Maps Power Saving – Reduce battery usage during navigation
+• 📊 Task Manager – View & kill running processes<br>
+• 💻 Terminal – Run shell commands on your device<br>
+• 🧹 Cache Cleaner – Clear app cache (via Shizuku)<br>
+• 🔐 Shizuku Manager – Control Shizuku service & permissions<br>
+• 🖥️ Secondary Display – Cast content to another screen<br>
+• 🔁 Auto Reboot – Schedule automatic restarts<br>
+• 🧩 Hidden Features – Unlock hidden Android settings<br>
+• 🗺️ Maps Power Saving – Reduce battery usage during navigation<br><br>
 
-┈➤ Security
+┈➤ Security<br><br>
 
-• 🚨 Motion Alert – Get notified when your device is moved
-• 🔒 Screenshot Blocker – Prevent screenshots & screen recording
+• 🚨 Motion Alert – Get notified when your device is moved<br>
+• 🔒 Screenshot Blocker – Prevent screenshots & screen recording<br><br>
 
-┈➤ Communication
+┈➤ Communication<br><br>
 
-• 📡 Walkie Talkie – Push-to-talk via Wi-Fi Direct
-• 📞 Fake Call – Simulate incoming calls
+• 📡 Walkie Talkie – Push-to-talk via Wi-Fi Direct<br>
+• 📞 Fake Call – Simulate incoming calls<br><br>
 
-┈➤ Notifications & Sensors
+┈➤ Notifications & Sensors<br><br>
 
-• 💡 Notification Lighting – Edge lighting & flashlight alerts
-• 🔋 Battery Health – View battery stats & OEM data
-• 🧲 Magnetic Field Sensor – Real-time magnetic field strength
-• 📱 Device Info – Full hardware & software details
+• 💡 Notification Lighting – Edge lighting & flashlight alerts<br>
+• 🔋 Battery Health – View battery stats & OEM data<br>
+• 🧲 Magnetic Field Sensor – Real-time magnetic field strength<br>
+• 📱 Device Info – Full hardware & software details<br><br>
 
-┈➤ Music & Light
+┈➤ Music & Light<br><br>
 
-• 🎵 Music Reactive Light – Flash & vibrate to music beats
-• 📊 Music Leveler – Animated equalizer across the screen
+• 🎵 Music Reactive Light – Flash & vibrate to music beats<br>
+• 📊 Music Leveler – Animated equalizer across the screen<br><br>
 
-┈➤ AI Writing
+┈➤ AI Writing<br><br>
 
-• ✍️ SwiftSlate AI – AI-powered text replacement anywhere
-
+• ✍️ SwiftSlate AI – AI-powered text replacement anywhere<br>
