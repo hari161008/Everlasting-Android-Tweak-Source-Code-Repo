@@ -1,4 +1,5 @@
 # Everlasting-Android-Tweak-Source-Code-Repo
+
 <br>
 
 <img src="https://raw.githubusercontent.com/hari161008/Website-For-Everlasting-Android-Tweak/main/Everlasting%20Android%20Tweak/Assets/Everlasting%20Android%20Tweak%20Banner.png" width="100%" />
@@ -11,6 +12,8 @@ Please Star this repo because we had reached 305+ starts last time when I checke
 The Good thing is if we search the app in Google is redirecting it the website itself which made me happy, soon I'll Update the Website so that people can redirect to this Repo itself...
 
 Everlasting Android Tweak is the true heart of Android, powerful, feature rich toolkit designed to unlock the full potential of your Android device. It provides you many advanced gestures, customization, system controls, and smart utilities to enhance and personalize your device experience.
+<br>
+Think Different :)
 
 # Credits To These Apps Which I Have Forked:
 
@@ -26,11 +29,10 @@ Everlasting Android Tweak is the true heart of Android, powerful, feature rich t
 
 Thanks To All Of Them Who Recommended This Cool App ❤️
 
-[popMODS](https://t.me/popMODS) <br>
-[How To Men](https://youtu.be/B59glf2bweo?si=f0LL93K-jvEZSENI&t=832) <br>
-[Tech Karan](https://youtu.be/t7q31ozyW3c) <br>
-[TechyNoob](https://youtu.be/DOCwXTz8PVw?si=BmHuFNEY2JpH7NFg)
-
+┈➤ [popMODS](https://t.me/popMODS) <br><br>
+┈➤ [How To Men](https://youtu.be/B59glf2bweo?si=f0LL93K-jvEZSENI&t=832) <br><br>
+┈➤ [Tech Karan](https://youtu.be/t7q31ozyW3c) <br><br>
+┈➤ [TechyNoob](https://youtu.be/DOCwXTz8PVw?si=BmHuFNEY2JpH7NFg)<br>
 
 # 📦 Latest Releases
 
