@@ -1,5 +1,9 @@
 # Everlasting-Android-Tweak-Source-Code-Repo
+<br>
 
+<img src="https://raw.githubusercontent.com/hari161008/Website-For-Everlasting-Android-Tweak/main/Everlasting%20Android%20Tweak/Assets/Everlasting%20Android%20Tweak%20Banner.png" width="100%" />
+
+<br>
 Since the original repo is being banned due to Licenses..., this is a new repo is which is being hoisted and did all the corrections, if I miss anything Please Please Please contact me through Telegram, I don't want a Ban again, I'll Fix it if required.
 
 Please Star this repo because we had reached 305+ starts last time when I checked... ThankYou !
@@ -43,6 +47,32 @@ GitHub: [Download](https://github.com/hari161008/Everlasting-Android-Tweak-Sourc
 <br>
 
 🔭 To contact me through Telegram: <a href="https://t.me/hariprabhu1008">@hariprabhu1008</a>
+
+# 📱 Screenshots:
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/hari161008/Website-For-Everlasting-Android-Tweak/main/Everlasting%20Android%20Tweak/Screenshots/1.png" width="32%"/>
+  <img src="https://raw.githubusercontent.com/hari161008/Website-For-Everlasting-Android-Tweak/main/Everlasting%20Android%20Tweak/Screenshots/2.png" width="32%"/>
+  <img src="https://raw.githubusercontent.com/hari161008/Website-For-Everlasting-Android-Tweak/main/Everlasting%20Android%20Tweak/Screenshots/3.png" width="32%"/>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/hari161008/Website-For-Everlasting-Android-Tweak/main/Everlasting%20Android%20Tweak/Screenshots/4.png" width="32%"/>
+  <img src="https://raw.githubusercontent.com/hari161008/Website-For-Everlasting-Android-Tweak/main/Everlasting%20Android%20Tweak/Screenshots/5.png" width="32%"/>
+  <img src="https://raw.githubusercontent.com/hari161008/Website-For-Everlasting-Android-Tweak/main/Everlasting%20Android%20Tweak/Screenshots/6.png" width="32%"/>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/hari161008/Website-For-Everlasting-Android-Tweak/main/Everlasting%20Android%20Tweak/Screenshots/7.png" width="32%"/>
+  <img src="https://raw.githubusercontent.com/hari161008/Website-For-Everlasting-Android-Tweak/main/Everlasting%20Android%20Tweak/Screenshots/8.png" width="32%"/>
+  <img src="https://raw.githubusercontent.com/hari161008/Website-For-Everlasting-Android-Tweak/main/Everlasting%20Android%20Tweak/Screenshots/9.png" width="32%"/>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/hari161008/Website-For-Everlasting-Android-Tweak/main/Everlasting%20Android%20Tweak/Screenshots/10.png" width="32%"/>
+  <img src="https://raw.githubusercontent.com/hari161008/Website-For-Everlasting-Android-Tweak/main/Everlasting%20Android%20Tweak/Screenshots/11.png" width="32%"/>
+  <img src="https://raw.githubusercontent.com/hari161008/Website-For-Everlasting-Android-Tweak/main/Everlasting%20Android%20Tweak/Screenshots/12.png" width="32%"/>
+</p>
 
 # Features of Everlasting Android Tweak .✦ ݁˖
 
