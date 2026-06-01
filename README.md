@@ -2,19 +2,15 @@
 
 Since the original repo is being banned, thisis a new repo is which is being hoisted
 
-<br>
-
 # Credits To These Apps Which I Have Forked:
 
-[SwiftSlate](https://github.com/Musheer360/SwiftSlate)
+┈➤ [SwiftSlate](https://github.com/Musheer360/SwiftSlate)
 
-[Lock screen widgets](https://github.com/zacharee/LockscreenWidgets)
+┈➤ [Lock screen widgets](https://github.com/zacharee/LockscreenWidgets)
 
-[Fake power Off](https://github.com/BinitDOX/FakePowerOff)
+┈➤ [Fake power Off](https://github.com/BinitDOX/FakePowerOff)
 
-[Essentials](https://github.com/sameerasw/essentials)
-
-<br>
+┈➤ [Essentials](https://github.com/sameerasw/essentials)
 
 # 📦 Latest Releases
 
