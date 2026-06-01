@@ -25,7 +25,7 @@ Think Different :)
 
 ┈➤ [Essentials](https://github.com/sameerasw/essentials)
 
-# Featured On Youtube 
+# Featured On...
 
 Thanks To All Of Them Who Recommended This Cool App ❤️
 
