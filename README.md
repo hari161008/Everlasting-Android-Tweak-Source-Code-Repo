@@ -1,6 +1,6 @@
 # Everlasting-Android-Tweak-Source-Code-Repo
 
-Since the original repo is being banned, this is a new repo is which is being hoisted
+Since the original repo is being banned due to Licenses..., this is a new repo is which is being hoisted and did all the corrections, if I miss anything Please Please Please contact me through Telegram, I don't want a Ban again, I'll Fix it if required. And please Star this repo because we had reached 305+ starts last time when I checked... ThankYou !
 
 Everlasting Android Tweak is the true heart of Android, powerful, feature rich toolkit designed to unlock the full potential of your Android device. It provides you many advanced gestures, customization, system controls, and smart utilities to enhance and personalize your device experience.
 
