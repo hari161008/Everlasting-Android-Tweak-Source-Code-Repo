@@ -74,7 +74,9 @@ GitHub: [Download](https://github.com/hari161008/Everlasting-Android-Tweak-Sourc
   <img src="https://raw.githubusercontent.com/hari161008/Website-For-Everlasting-Android-Tweak/main/Everlasting%20Android%20Tweak/Screenshots/12.png" width="32%"/>
 </p>
 
-Features of Everlasting Android Tweak .✦ ݁˖
+<br>
+
+# Features of Everlasting Android Tweak .✦ ݁˖
 
 ┈➤ Gestures<br><br>
 
