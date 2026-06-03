@@ -32,7 +32,7 @@ Thanks To All Of Them Who Recommended This Cool App ❤️
 ┈➤ [popMODS](https://t.me/popMODS) <br><br>
 ┈➤ [How To Men](https://youtu.be/B59glf2bweo?si=f0LL93K-jvEZSENI&t=832) <br><br>
 ┈➤ [Tech Karan](https://youtu.be/t7q31ozyW3c) <br><br>
-┈➤ [TechyNoob](https://youtu.be/DOCwXTz8PVw?si=BmHuFNEY2JpH7NFg)<br>
+┈➤ [TechyNoob](https://youtu.be/DOCwXTz8PVw?si=BmHuFNEY2JpH7NFg)
 
 # 📦 Latest Releases
 
@@ -40,19 +40,13 @@ GitHub: [Download](https://github.com/hari161008/Everlasting-Android-Tweak-Sourc
 
 # 🚀 Telegram Links
 
-🌐 Cool Apps Recommending Channel: <a href="https://t.me/CoolAppStore">Join Now</a>
-
-<br>
-
-📢 Everlasting Support Group: <a href="https://t.me/EverlastingAndroidTweak">Join Now</a>
-
-<br>
-
-🔭 To contact me through Telegram: <a href="https://t.me/hariprabhu1008">@hariprabhu1008</a> <br>
+🌐 Cool Apps Recommending Channel: <a href="https://t.me/CoolAppStore">Join Now</a> <br>
+📢 Everlasting Support Group: <a href="https://t.me/EverlastingAndroidTweak">Join Now</a> <br>
+🔭 To contact me through Telegram: <a href="https://t.me/hariprabhu1008">@hariprabhu1008</a>
 
 # Website
 
-[Everlating Android Tweak](https://hari161008.github.io/Website-For-Everlasting-Android-Tweak/Ratings%20Reviews/Ratings%20and%20Reviews%20v3.html) <br>
+[Everlating Android Tweak](https://hari161008.github.io/Website-For-Everlasting-Android-Tweak/Ratings%20Reviews/Ratings%20and%20Reviews%20v3.html)
 
 # 📱 Screenshots:
 
