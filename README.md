@@ -25,10 +25,6 @@ Think Different :)
 
 ┈➤ [Essentials](https://github.com/sameerasw/essentials)
 
-┈➤ [All About Android](https://youtu.be/8ltMDTbRSmA)
-
-┈➤ [Spire Tweaks](https://youtu.be/ssolFqLXABY)
-
 # Featured On...
 
 Thanks To All Of Them Who Recommended This Cool App ❤️
@@ -36,7 +32,9 @@ Thanks To All Of Them Who Recommended This Cool App ❤️
 ┈➤ [popMODS](https://t.me/popMODS) <br><br>
 ┈➤ [How To Men](https://youtu.be/B59glf2bweo?si=f0LL93K-jvEZSENI&t=832) <br><br>
 ┈➤ [Tech Karan](https://youtu.be/t7q31ozyW3c) <br><br>
-┈➤ [TechyNoob](https://youtu.be/DOCwXTz8PVw?si=BmHuFNEY2JpH7NFg)
+┈➤ [TechyNoob](https://youtu.be/DOCwXTz8PVw?si=BmHuFNEY2JpH7NFg)<br><br>
+┈➤ [All About Android](https://youtu.be/8ltMDTbRSmA)<br><br>
+┈➤ [Spire Tweaks](https://youtu.be/ssolFqLXABY)
 
 # 📦 Latest Releases
 
