@@ -25,6 +25,10 @@ Think Different :)
 
 ┈➤ [Essentials](https://github.com/sameerasw/essentials)
 
+┈➤ [All About Android](https://youtu.be/8ltMDTbRSmA)
+
+┈➤ [Spire Tweaks](https://youtu.be/ssolFqLXABY)
+
 # Featured On...
 
 Thanks To All Of Them Who Recommended This Cool App ❤️
